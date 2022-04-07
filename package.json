@@ -1,0 +1,25 @@
+{
+  "name": "cs542-s22-final-project",
+  "version": "1.0.0",
+  "description": "Directory structure: \r - Views: HTML page files\r - Public: JS & CSS for pages\r - Base directory: JS for Server",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/csmbrad/CS542-S22-Final-Project.git"
+  },
+  "author": "bcosma@wpi.edu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/csmbrad/CS542-S22-Final-Project/issues"
+  },
+  "homepage": "https://github.com/csmbrad/CS542-S22-Final-Project#readme",
+  "dependencies": {
+    "body-parser": "^1.20.0",
+    "express": "^4.17.3",
+    "express-slash": "^2.0.1"
+  }
+}
