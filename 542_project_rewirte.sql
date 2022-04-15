@@ -7,6 +7,12 @@ CREATE TABLE Customer(
     UNIQUE (Customer_address)
 );
 
+CREATE TABLE Coupon_Type(
+    type_id REAL AUTO_INCREMENT,
+    type_Name VARCHAR(11),
+    PRIMARY KEY (type_id)
+);
+
 CREATE TABLE Coupon(
     Coupon_ID CHAR(11),
     Discount REAL,
@@ -16,10 +22,10 @@ CREATE TABLE Coupon(
     FOREIGN KEY (type_id) REFERENCES Coupon_Type (type_id)
 );
 
-CREATE TABLE Coupon_Type(
-  type_id REAL AUTO_INCREMENT,
-  type_Name VARCHAR(11),
-  PRIMARY KEY (type_id)
+CREATE TABLE Restaurant_Type(
+    type_id REAL AUTO_INCREMENT,
+    type_Name VARCHAR(11),
+    PRIMARY KEY (type_id)
 );
 
 CREATE TABLE Restaurant(
@@ -30,12 +36,6 @@ CREATE TABLE Restaurant(
     R_Image_Reference VARCHAR(30),
     PRIMARY KEY (R_id),
     FOREIGN KEY (Category) REFERENCES Restaurant_Type (type_id)
-);
-
-CREATE TABLE Restaurant_Type(
-    type_id REAL AUTO_INCREMENT,
-    type_Name VARCHAR(11),
-    PRIMARY KEY (type_id)
 );
 
 CREATE TABLE Make_advertisment_to(
@@ -87,6 +87,12 @@ CREATE TABLE Provide_Coupon(
     FOREIGN KEY (Coupon_ID) REFERENCES Coupon (Coupon_ID)
 );
 
+CREATE TABLE Food_Type (
+   type_id REAL AUTO_INCREMENT,
+   type_Name VARCHAR(11),
+   PRIMARY KEY (type_id)
+);
+
 CREATE TABLE Food(
     R_id CHAR(11),
     F_id CHAR(11),
@@ -97,12 +103,6 @@ CREATE TABLE Food(
     PRIMARY KEY (F_id),
     FOREIGN KEY (R_id)      REFERENCES Restaurant (R_id),
     FOREIGN KEY (F_type)    REFERENCES Food_Type (type_id)
-);
-
-CREATE TABLE Food_Type (
-   type_id REAL AUTO_INCREMENT,
-   type_Name VARCHAR(11),
-   PRIMARY KEY (type_id)
 );
 
 CREATE TABLE Giving_Restaurant_Review_Associate(
