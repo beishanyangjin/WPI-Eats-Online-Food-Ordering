@@ -18,18 +18,24 @@ const connection = mysql.createConnection({
 function testMySQL2() {
     connection.connect()
 
+    console.log("Starting connection basic test:")
     connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
         if (err) throw err
         console.log('The solution is: ', rows[0].solution)
     })
 
-    connection.query('SELECT 1 + 1 AS solution', (err, rows, fields) => {
+    console.log("Starting connection schema test:")
+    connection.query('SHOW TABLES', (err, rows, fields) => {
         if (err) throw err
-        console.log('The solution is: ', rows[0].solution)
+        let tables = []
+        rows.forEach(element => tables.push(element.Tables_in_restaurants))
+        console.log('Tables: ', tables)
     })
 
     connection.end()
 }
+
+testMySQL2()
 
 // enable strict routing and use slash:
 app.enable("strict routing");
