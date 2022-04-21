@@ -1,0 +1,59 @@
+<!doctype html>
+<html>
+<script>
+    var url = window.location.href;
+    var args = url.split("?");
+    var r = args[1];
+</script>
+
+<head>
+    <meta charset="utf-8">
+    <title>menu</title>
+    <link rel="stylesheet" type="text/css" href="mainpage.css">
+</head>
+
+<body>
+    <div class="app">
+        <!-- top parts-->
+        <div id='top'>
+            <a id='logo' href="mainpage.html"></a>
+            <div id="search">
+                <input class="inputbox" style="color: #D0B48F;" placeholder="Search for food" v-model="searchContent">
+                <a class='ib' @click="tosearch">Search</a>
+            </div>
+            <a id="mycart" href="img/cart.webp"></a>
+            <div id='login_place'>
+                <a class="loginstatus" :href="directurl">{{username}}</a>
+            </div>
+        </div>
+        <!-- main parts-->
+        <div class="restaurantinf">
+            <img src="img/restaurant.webp">
+            <p class="rname">Macdonal's &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{rimformation[0].rank}} stars + {{rid}}</p>
+        </div>
+        <div id="list">
+
+            <div class="food" v-for="item in fimformation" :key="item.fid">
+                <img :src='item.imgref'>
+                <table width="264px">
+                    <tr>
+                        <td class="fname" colspan="2">{{item.name}}</td>
+                        <td class='r'>$ {{item.price}}</td>
+                    </tr>
+                    <tr>
+                        <td class="selled" colspan="3">selled {{ item.selled_quality}} last week</td>
+                    </tr>
+                    <tr>
+                        <td class="stars">{{item.rank}} stars</td>
+                        <td colspan="2"><button @click="addtoCart(item.fid)">add</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </div>
+</body>
+<!-- 开发环境版本，包含了有帮助的命令行警告 -->
+<script src="vue.js"></script>
+<script src="mainpage.js"></script>
+
+</html>
