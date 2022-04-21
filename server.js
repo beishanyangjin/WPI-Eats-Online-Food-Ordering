@@ -55,7 +55,7 @@ function getIndex(req, res) {
 app.get("/", (req, res)      => {getIndex(req, res); });
 app.get("/index", (req, res) => {getIndex(req, res); });
 
-app.get("/query", (req, res) => {
+app.post("/query", (req, res) => {
     const query = mysql.escape(req.body.query);
     let result = {'restaurants': [], 'foods': []};
 
