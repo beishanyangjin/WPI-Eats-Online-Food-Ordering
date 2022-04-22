@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>login UI</title>
+    <link rel="stylesheet" type="text/css" href="login.css">
+</head>
+
+<body>
+    <div class="box">
+        <div id="loginstatus" v-if="isShow">{{ isSuccess }}</div>
+        <h2>wpieats</h2>
+        <form>
+            <div class="inputBox">
+                <input type="text" v-model="id" name="" required="">
+                <label>ID</label>
+            </div>
+            <div class="inputBox">
+                <input type="password" v-model="password" name="" required="">
+                <label>password</label>
+            </div>
+            <div><input type="submit" name="" value="login" @click.prevent="submitloginimf"> </div>
+            <div><input type="submit" name="" value="sign up" @click.prevent="submitsignimf"> </div>
+        </form>
+    </div>
+</body>
+
+<script src="vue.js"></script>
+<script src="login.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</html>
