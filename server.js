@@ -8,12 +8,20 @@ const slash = require("express-slash");
 const bodyParser = require("body-parser");
 // mysql connection
 const mysql = require("mysql2");
-const connection = mysql.createConnection({
+/*const connection = mysql.createConnection({
     host: 'localhost',
     user: 'dev',
     password: 'dev1',
     database: 'Restaurants'
+})*/
+
+const connection = mysql.createConnection({
+    host: 'localhost',
+    user: 'root',
+    password: '12345678',
+    database: '542'
 })
+
 
 function testMySQL2() {
     connection.connect()
@@ -27,14 +35,16 @@ function testMySQL2() {
     console.log("Starting connection schema test:")
     connection.query('SHOW TABLES', (err, rows, fields) => {
         if (err) throw err
+        console.log(rows);
         let tables = []
-        rows.forEach(element => tables.push(element.Tables_in_restaurants))
+        //rows.forEach(element => tables.push(element.Tables_in_restaurants))
+        rows.forEach(element => tables.push(element.Tables_in_542))
         console.log('Tables: ', tables)
     })
 
     connection.end()
 }
-testMySQL2()
+//testMySQL2()
 
 // enable strict routing and use slash:
 app.enable("strict routing");
@@ -55,10 +65,11 @@ function getIndex(req, res) {
 app.get("/", (req, res)      => {getIndex(req, res); });
 app.get("/index", (req, res) => {getIndex(req, res); });
 
-app.post("/query", (req, res) => {
+app.post("/query", bodyParser.json(), (req, res) => {
+    console.log("body: ", req.body)
     const query = mysql.escape(req.body.query);
     let result = {'restaurants': [], 'foods': []};
-
+ 
     connection.connect();
     // find restaurants with names like the query text
     connection.query(
