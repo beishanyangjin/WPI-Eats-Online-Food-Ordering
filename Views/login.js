@@ -8,12 +8,16 @@ var app = new Vue({
     },
     methods: {
         submitloginimf: function() {
-            axios.post('https://autumnfish.cn/api/joke', {
-                    data: {
-                        uid: this.id,
-                        password: this.password
-                    }
+            axios.post('http://127.0.0.1:3000/searchRestaurant', 
+                     {
+                        Security_id: "u3",
+                    Password_id: "11",
+                    user_name: "user_name",
+                    user_phone: "user_phone",
+                    address:"address3",
+                    query: this.id
                 })
+                
                 .then(function(response) {
                     //this.isSuccess = response.data;
                     console.log(response)

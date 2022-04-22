@@ -64,19 +64,22 @@ function getIndex(req, res) {
 
 app.get("/", (req, res)      => {getIndex(req, res); });
 app.get("/index", (req, res) => {getIndex(req, res); });
+app.get("/login", (req, res) => {
+    res.sendFile(__dirname + "/Views/login.html") 
+})
 
-app.post("/query", bodyParser.json(), (req, res) => {
+app.post("/searchRestaurant", bodyParser.json(), (req, res) => {
     console.log("body: ", req.body)
-    const query = mysql.escape(req.body.query);
+    const query = req.body.query; //mysql.escape(req.body.query);
     let result = {'restaurants': [], 'foods': []};
- 
+
     connection.connect();
     // find restaurants with names like the query text
     connection.query(
-        'SELECT R.R_name as rname, RT.type_Name as rtype, R.R_Image_Reference as img FROM restaurant R NATURAL JOIN restaurant_type RT WHERE R_name LIKE ?',
-        [`%${query}%`],
+        `SELECT R.R_name as rname, RT.type_Name as rtype, R.R_Image_Reference as img FROM restaurant R NATURAL JOIN restaurant_type RT WHERE R_name = '${query}';`,
         (err, rows, fields) => {
             // add each restaurant to the result array
+            console.log("search rows", rows);
             if (err) throw err;
             rows.forEach(element => {
                 result.restaurants.push({
@@ -85,11 +88,20 @@ app.post("/query", bodyParser.json(), (req, res) => {
                     'R_Image_Reference': element.img
                     })
             });
+            console.log("result after restaurants: ", result)
+            res.json(result);
     })
+})
+
+app.post("/searchFood", bodyParser.json(), (req, res) => {
+    console.log("body: ", req.body)
+    const query = req.body.query; //mysql.escape(req.body.query);
+    let result = {'restaurants': [], 'foods': []};
+
+    connection.connect();
     // find foods the same way
     connection.query(
-        'SELECT F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img FROM food F NATURAL JOIN food_type FT WHERE F_name LIKE ?',
-        [`%${query}%`],
+        `SELECT F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img FROM food F NATURAL JOIN food_type FT WHERE F_name LIKE '${query}';`,
         (err, rows, fields) => {
             // add each restaurant to the result array
             if (err) throw err;
@@ -101,9 +113,8 @@ app.post("/query", bodyParser.json(), (req, res) => {
                     'F_Image_Reference': element.img
                 })
             });
+            res.json(result);
         })
-    connection.end();
-    res.json(result);
 })
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
