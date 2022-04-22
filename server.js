@@ -66,10 +66,7 @@ app.get("/", (req, res)      => {getIndex(req, res); });
 app.get("/index", (req, res) => {getIndex(req, res); });
 
 app.post("/query", bodyParser.json(), (req, res) => {
-<<<<<<< HEAD
     console.log("body: ", req.body)
-=======
->>>>>>> 0d2c142ed88f97064d37c6f649660d24f0e94c86
     const query = mysql.escape(req.body.query);
     let result = {'restaurants': [], 'foods': []};
  
