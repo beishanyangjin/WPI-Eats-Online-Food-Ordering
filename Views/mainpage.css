@@ -14,10 +14,7 @@
     left: 50px;
     /* margin-top: 5px; */
     top: 5px;
-<<<<<<< HEAD:Public/mainpage.css
     background-image: url(../img/logo2.png);
-=======
->>>>>>> 6a2c337c5e0ccaff9e05bdc4f638eb9cddea03f5:Views/mainpage.css
     background-repeat: no-repeat;
     background-position-y: 50%;
 }
@@ -28,10 +25,7 @@
     position: absolute;
     left: 1000px;
     top: 10px;
-<<<<<<< HEAD:Public/mainpage.css
     background-image: url(../img/cart.png);
-=======
->>>>>>> 6a2c337c5e0ccaff9e05bdc4f638eb9cddea03f5:Views/mainpage.css
     background-repeat: no-repeat;
     background-position-y: 50%;
     border-radius: 50%;
@@ -50,10 +44,7 @@
     position: absolute;
     left: 400px;
     margin-top: 12px;
-<<<<<<< HEAD:Public/mainpage.css
-    background-image: url(..img/search.png);
-=======
->>>>>>> 6a2c337c5e0ccaff9e05bdc4f638eb9cddea03f5:Views/mainpage.css
+    background-image: url(../img/search.png);
     background-position: 0% 50%;
     text-align: center;
 }

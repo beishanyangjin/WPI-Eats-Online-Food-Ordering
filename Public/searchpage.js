@@ -16,15 +16,10 @@ var mainapp = new Vue({
         searchContent: args[1],
         //cart.item:{ fid: string, fname: string, quatity: int, price:  }
         cart: new Array,
-        /*
-            {
-                
-                rid:"",
-                name: "",
-                imgref:"",
-                deliverfee:""
-                
-            },*/
+        rsearch: [
+            { rid: "0003", rank: "4.5", name: "burger king", imgref: "img/restaurant.webp", delivertime: "22", deliverfee: "1" },
+            { rid: "0004", rank: "4.5", name: "wendy's", imgref: "img/Coke.webp", delivertime: "20", deliverfee: "2" },
+        ]
     },
     methods: {
         tosearch: function() {
@@ -66,10 +61,27 @@ var mainapp = new Vue({
         torestaurant: function(id) {
             window.location.href = "menu.html?username=" + this.username + "&rid=" + id
         },
+        test: function() {
+            axios.post('http://127.0.0.1:3000/searchRestaurant', {
+                    Security_id: "u3",
+                    Password_id: "11",
+                    user_name: "user_name",
+                    user_phone: "user_phone",
+                    address: "address3",
+                    query: this.searchContent
+                })
+                .then(function(response) {
+                    //this.isSuccess = response.data;
+                    console.log(response.Restaurant)
+                })
+                .catch(function(err) {
+                    this.isSuccess = "err";
+                });
+        }
     },
     computed: {
         mainpageurl: function() {
-            return "mainpage.html?" + this.username
+            return "mainpage.html?username=" + this.username
         },
         username: function() {
             if (args[0] != "login" && args[0] != "NULL") {
@@ -88,28 +100,7 @@ var mainapp = new Vue({
                 i++
             }
             return m;
-        },
-        rsearch: function() {
-            axios.post('http://127.0.0.1:3000/searchRestaurant', {
-                    Security_id: "u3",
-                    Password_id: "11",
-                    user_name: "user_name",
-                    user_phone: "user_phone",
-                    address: "address3",
-                    query: this.searchContent
-                })
-                .then(function(response) {
-                    //this.isSuccess = response.data;
-                    console.log(response)
-                })
-                .catch(function(err) {
-                    this.isSuccess = "err";
-                });
-            return [
-                { rid: "0003", rank: "4.5", name: "burger king", imgref: "img/restaurant.webp", delivertime: "22", deliverfee: "1" },
-                response.Restsurant[0]
-            ]
-        },
+        }
 
     }
 

@@ -107,7 +107,7 @@ var mainapp = new Vue({
     },
     computed: {
         mainpageurl: function() {
-            return "mainpage.html?" + this.username
+            return "mainpage.html?username=" + this.username
         },
         rid: () => {
             if (args[1]) return args[1];

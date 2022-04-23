@@ -44,7 +44,7 @@
     position: absolute;
     left: 400px;
     margin-top: 12px;
-    background-image: url(..img/search.png);
+    background-image: url(../img/searchicon.png);
     background-position: 0% 50%;
     text-align: center;
 }
