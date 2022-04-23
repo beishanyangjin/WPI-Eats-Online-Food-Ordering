@@ -8,19 +8,19 @@ const slash = require("express-slash");
 const bodyParser = require("body-parser");
 // mysql connection
 const mysql = require("mysql2");
-/*const connection = mysql.createConnection({
+const connection = mysql.createConnection({
     host: 'localhost',
     user: 'dev',
     password: 'dev1',
     database: 'Restaurants'
-})*/
-
+})
+/*
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '12345678',
     database: '542'
-})
+})*/
 
 
 function testMySQL2() {
@@ -53,6 +53,7 @@ app.use(slash());
 // serving static files
 app.use(express.static("Public"));
 app.use(express.static("Views"));
+app.use(express.static("img"));
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Routes
@@ -65,7 +66,10 @@ function getIndex(req, res) {
 app.get("/", (req, res)      => {getIndex(req, res); });
 app.get("/index", (req, res) => {getIndex(req, res); });
 app.get("/login", (req, res) => {
-    res.sendFile(__dirname + "/Views/login.html") 
+    res.sendFile(__dirname + "login.html")
+})
+app.get("/searchpage", (req, res) => {
+    res.sendFile(__dirname + "searchpage.html")
 })
 
 app.post("/searchRestaurant", bodyParser.json(), (req, res) => {

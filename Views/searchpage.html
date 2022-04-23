@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <title>wpi eats</title>
-    <link rel="stylesheet" type="text/css" href="../Public/mainpage.css">
+    <link rel="stylesheet" type="text/css" href="mainpage.css">
 
 </head>
 
@@ -33,7 +33,7 @@
                     <th>option</th>
                 </tr>
                 <tr class="cartitem" v-for="item in cart" :key="item.fid">
-                    <td>{{item.fname}}</td>
+                    <td>{{<it></it>em.fname}}</td>
                     <td>{{item.quatity}}</td>
                     <td><input type="button" value='delete' @click="cancelitem(item.fid)"></input>
                     </td>
@@ -66,8 +66,8 @@
 
 
 </body>
-<script src="../Public/vue.js"></script>
-<script src="../Public/searchpage.js"></script>
+<script src="vue.js"></script>
+<script src="searchpage.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </html>
