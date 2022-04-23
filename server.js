@@ -124,6 +124,7 @@ app.post("/ridRestaurant", bodyParser.json(), (req, res) => {
 
     connection.connect();
     // find restaurants with rid like the query text
+    //test
     connection.query(
         `SELECT R.R_name as rname, RT.type_Name as rtype, R.R_Image_Reference as img FROM restaurant R NATURAL JOIN restaurant_type RT WHERE R_id = '${query}';`,
         (err, rows, fields) => {
