@@ -1,29 +1,23 @@
-var url = window.location.href;
-var arg = url.split("?username=");
-if (arg.length > 0) {
-    var args = arg[1];
-} else {
-    args = [0, '']
-}
-
-
 var app = new Vue({
     el: ".box",
     data: {
-        id: args,
+        id: "",
         password: "",
         isSuccess: "Fail to login",
-        isShow: false,
-        balance: 0
+        isShow: false
     },
     methods: {
         submitloginimf: function() {
-            axios.post('https://autumnfish.cn/api/joke', {
-                    data: {
-                        uid: this.id,
-                        password: this.password
-                    }
+            axios.post('searchRestaurant',
+                {
+                    Security_id: "u3",
+                    Password_id: "11",
+                    user_name: "user_name",
+                    user_phone: "user_phone",
+                    address:"address3",
+                    query: this.id
                 })
+
                 .then(function(response) {
                     //this.isSuccess = response.data;
                     console.log(response)
@@ -42,15 +36,7 @@ var app = new Vue({
             //).catch(function(err){})
             console.log(this.id)
             this.isShow = true
-        },
-        addbalance: function() {
-            this.balance += 100;
-        },
-    },
-    computed: {
-        mainpageurl: function() {
-            return "mainpage.html?username=" + this.id
-        },
+        }
     }
 
 })

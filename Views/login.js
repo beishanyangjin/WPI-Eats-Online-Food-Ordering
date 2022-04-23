@@ -8,7 +8,7 @@ var app = new Vue({
     },
     methods: {
         submitloginimf: function() {
-            axios.post('http://127.0.0.1:3000/searchRestaurant', 
+            axios.post('searchRestaurant',
                      {
                         Security_id: "u3",
                     Password_id: "11",
