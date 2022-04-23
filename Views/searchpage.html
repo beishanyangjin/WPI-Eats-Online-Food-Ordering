@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>wpi eats</title>
+    <link rel="stylesheet" type="text/css" href="mainpage.css">
+
+</head>
+
+<body style="background-color: #eee;">
+    <div class="app">
+        <!-- top parts-->
+        <div id='top'>
+            <a id='logo' :href="mainpageurl"></a>
+            <div id="search">
+                <input class="inputbox" style="color: #D0B48F;" placeholder="Search for food" v-model="searchContent">
+                <a class='ib' @click="tosearch">Search</a>
+            </div>
+            <a id="mycart" @click="showcart"></a>
+            <div id='login_place'>
+                <a class="loginstatus" :href="directurl">{{username}}</a>
+            </div>
+        </div>
+        <!-- cart -->
+        <div id="cart" v-show="isshowcart">
+            <a id="closebutton" @click="closecart">x</a>
+            <a class="rname">My Cart</a>
+            <table width="300px">
+                <tr>
+                    <th>name</th>
+                    <th>quatity</th>
+                    <th>option</th>
+                </tr>
+                <tr class="cartitem" v-for="item in cart" :key="item.fid">
+                    <td>{{item.fname}}</td>
+                    <td>{{item.quatity}}</td>
+                    <td><input type="button" value='delete' @click="cancelitem(item.fid)"></input>
+                    </td>
+                </tr>
+            </table>
+            <p id="total">Total: ${{money}}</p>
+            <button id="button1" @click="cancelall">Cancel all</button>
+            <button id="button2" @click="Checkout">Checkout</button>
+        </div>
+        <!-- mainparts-->
+        <div class="desp">
+            <p>----------------------Result-----------------------</p>
+        </div>
+        <div id="list">
+            <div class="restaurant" v-for="item in rsearch" :key="item.rid">
+                <img :src='item.imgref' @click="torestaurant(item.rid)">
+                <table width="260px">
+                    <tr>
+                        <td class="rname" colspan="2" @click="torestaurant(item.rid)">{{ item.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>{{item.delivertime}} min</td>
+                        <td>${{ item.deliverfee}} deliver fee</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+
+
+</body>
+<script src="vue.js"></script>
+<script src="searchpage.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</html>
