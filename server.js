@@ -117,6 +117,31 @@ app.post("/searchFood", bodyParser.json(), (req, res) => {
         })
 })
 
+app.post("/ridRestaurant", bodyParser.json(), (req, res) => {
+    console.log("body: ", req.body)
+    const query = req.body.query; //mysql.escape(req.body.query);
+    let result = {'restaurants': [], 'foods': []};
+
+    connection.connect();
+    // find restaurants with rid like the query text
+    connection.query(
+        `SELECT R.R_name as rname, RT.type_Name as rtype, R.R_Image_Reference as img FROM restaurant R NATURAL JOIN restaurant_type RT WHERE R_id = '${query}';`,
+        (err, rows, fields) => {
+            // add each restaurant to the result array
+            console.log("search rows", rows);
+            if (err) throw err;
+            rows.forEach(element => {
+                result.restaurants.push({
+                    'R_name': element.rname,
+                    'Category': element.rtype,
+                    'R_Image_Reference': element.img
+                    })
+            });
+            console.log("result after restaurants: ", result)
+            res.json(result);
+    })
+})
+  
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Listener
 
