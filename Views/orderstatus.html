@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>my order</title>
+    <link rel="stylesheet" type="text/css" href="/Public/login.css">
+</head>
+
+<body>
+    <div class="box">
+        <h2>my order</h2><button @click="orderprogress">progress</button>
+        <form>
+            <form>
+                <div class="inputBox">
+                    <p class="header">orderID:</p>
+                    <p class="content"> &nbsp&nbsp {{orderid}}</p>
+                </div>
+                <div class="inputBox">
+                    <p class="header">Status</p>
+                    <p class="content" style="color: green;"> &nbsp&nbsp {{orderstatus}}</p>
+                </div>
+                <div class="inputBox">
+                    <p class="header">Address: </p>
+                    <p class="content"> &nbsp&nbsp 100 Institute Road Worcester, MA 01609</p>
+                </div>
+                <div class="inputBox">
+                    <p class="header">Phone:</p>
+                    <p class="content"> &nbsp&nbsp 508-831-5000</p>
+                </div>
+                <div><input type="button" name="" value="Cancel" @click="Cancel"> <a :href="mainpageurl"> back</a></div>
+            </form>
+        </form>
+    </div>
+</body>
+
+<script src="/Public/vue.js"></script>
+<script src="/Public/orderstatus.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</html>

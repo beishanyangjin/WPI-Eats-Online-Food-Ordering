@@ -45,10 +45,10 @@
         </div>
         <!-- mainparts-->
         <div class="desp">
-            <p>----------------------Result-----------------------</p>
+            <p>----------------------Most popular reatsurant-----------------------</p>
         </div>
         <div id="list">
-            <div class="restaurant" v-for="item in rsearch" :key="item.rid">
+            <div class="restaurant" v-for="item in rimformation" :key="item.rid">
                 <img :src='item.imgref' @click="torestaurant(item.rid)">
                 <table width="260px">
                     <tr>
@@ -61,13 +61,34 @@
                 </table>
             </div>
         </div>
+        <div class="desp">
+            <p>----------------------Most popular Food-----------------------</p>
+        </div>
+        <div id="list">
+            <div class="food" v-for="item in fimformation" :key="item.fid">
+                <img :src='item.imgref'>
+                <table width="264px">
+                    <tr>
+                        <td class="fname" colspan="2">{{item.name}}</td>
+                        <td class='r'>$ {{item.price}}</td>
+                    </tr>
+                    <tr>
+                        <td class="selled" colspan="3">selled {{ item.selled_quality}} last week</td>
+                    </tr>
+                    <tr>
+                        <td class="stars">{{item.rank}} stars</td>
+                        <td colspan="2"><button @click="addtoCart(item.fid)">add</button></td>
+                    </tr>
+                </table>
+            </div>
+        </div>
 
     </div>
 
 
 </body>
 <script src="/Public/vue.js"></script>
-<script src="/Public/searchpage.js"></script>
+<script src="/Public/mainpage.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </html>

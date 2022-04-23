@@ -1,0 +1,38 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>profile</title>
+    <link rel="stylesheet" type="text/css" href="/Public/login.js">
+</head>
+
+<body>
+    <div class="box">
+        <h2>My Profile</h2>
+        <form>
+            <div class="inputBox">
+                <p class="header">ID:</p>
+                <p class="content" v-model="id"> &nbsp&nbsp {{id}}</p>
+            </div>
+            <div class="inputBox">
+                <p class="header">Address: </p>
+                <p class="content"> &nbsp&nbsp 100 Institute Road Worcester, MA 01609</p>
+            </div>
+            <div class="inputBox">
+                <p class="header">Phone:</p>
+                <p class="content"> &nbsp&nbsp 508-831-5000</p>
+            </div>
+            <div class="inputBox">
+                <p class="header" v-model="balance">Current Balance: &nbsp&nbsp ${{balance}}</p>
+            </div>
+            <div><input type="submit" name="" value="add Balance" @click.prevent="addbalance"> <a :href="mainpageurl">back</a></div>
+        </form>
+    </div>
+</body>
+
+<script src="/Public/vue.js"></script>
+<script src="/Public/login.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</html>

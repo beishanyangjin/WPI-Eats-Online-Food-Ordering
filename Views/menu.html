@@ -1,18 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+<script>
+    var url = window.location.href;
+    var args = url.split("?");
+    var r = args[1];
+</script>
 
 <head>
     <meta charset="utf-8">
-    <title>wpi eats</title>
+    <title>menu</title>
     <link rel="stylesheet" type="text/css" href="/Public/mainpage.css">
-
 </head>
 
 <body style="background-color: #eee;">
     <div class="app">
         <!-- top parts-->
         <div id='top'>
-            <a id='logo' :href="mainpageurl"></a>
+            <a id='logo' href="mainpage.html"></a>
             <div id="search">
                 <input class="inputbox" style="color: #D0B48F;" placeholder="Search for food" v-model="searchContent">
                 <a class='ib' @click="tosearch">Search</a>
@@ -43,31 +47,36 @@
             <button id="button1" @click="cancelall">Cancel all</button>
             <button id="button2" @click="Checkout">Checkout</button>
         </div>
-        <!-- mainparts-->
-        <div class="desp">
-            <p>----------------------Result-----------------------</p>
+        <!-- main parts-->
+        <div class="restaurantinf">
+            <img src="img/restaurant.webp">
+            <p class="rname">Macdonal's &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp {{rimformation[0].rank}} stars + {{rid}}</p>
         </div>
         <div id="list">
-            <div class="restaurant" v-for="item in rsearch" :key="item.rid">
-                <img :src='item.imgref' @click="torestaurant(item.rid)">
-                <table width="260px">
+
+            <div class="food" v-for="item in fimformation" :key="item.fid">
+                <img :src='item.imgref'>
+                <table width="264px">
                     <tr>
-                        <td class="rname" colspan="2" @click="torestaurant(item.rid)">{{ item.name}}</td>
+                        <td class="fname" colspan="2">{{item.name}}</td>
+                        <td class='r'>$ {{item.price}}</td>
                     </tr>
                     <tr>
-                        <td>{{item.delivertime}} min</td>
-                        <td>${{ item.deliverfee}} deliver fee</td>
+                        <td class="selled" colspan="3">selled {{ item.selled_quality}} last week</td>
+                    </tr>
+                    <tr>
+                        <td class="stars">{{item.rank}} stars</td>
+                        <td colspan="2"><button @click="addtoCart(item.fid)">add</button></td>
                     </tr>
                 </table>
             </div>
         </div>
 
     </div>
-
-
 </body>
+
 <script src="/Public/vue.js"></script>
-<script src="/Public/searchpage.js"></script>
+<script src="/Public/mainpage.js"></script>
 <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
 </html>
