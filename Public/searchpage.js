@@ -109,26 +109,8 @@ var mainapp = new Vue({
             return m;
         }
     },
-    mounted() {
-        var that = this
-        axios.post('/searchRestaurant', {
-                Security_id: "u3",
-                Password_id: "11",
-                user_name: "user_name",
-                user_phone: "user_phone",
-                query: this.searchContent
-            })
-            .then(function(response) {
-                //this.isSuccess = response.data;
-                console.log(response.data.restaurants[0].R_name)
-                that.id = response.data.restaurants[0].R_id
-                that.name = response.data.restaurants[0].R_name
-                that.ref = response.data.restaurants[0].R_Image_Reference
-                that.rsearch.push({ rid: that.id, rank: 4.2, name: that.name, imgref: that.ref, delivertime: "20", deliverfee: "2" })
-            })
-            .catch(function(err) {
-                this.isSuccess = "err";
-            });
+    mounted: function() {
+        this.test()
     }
 
 })
