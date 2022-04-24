@@ -47,9 +47,29 @@ var app = new Vue({
             console.log(this.id)
             this.isShow = true
         },
-        addbalance: function(){
-            this.balance +=100
-            //here lack axios.post(/addbalance)
+        addbalance: function() {
+            axios.post('/cidBalance', {
+                    query: "101"
+                })
+                .then(function(response) {
+                    //this.isSuccess = response.data;
+                    console.log(response)
+                })
+                .catch(function(err) {
+                    this.isSuccess = "err";
+                });
+            axios.post('/cidCustomer', {
+                    query: "101"
+                })
+                .then(function(response) {
+                    //this.isSuccess = response.data;
+                    console.log(response)
+                    this.balance = response.Balance
+                })
+                .catch(function(err) {
+                    this.isSuccess = "err";
+                });
+
         }
     },
     computed: {
