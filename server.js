@@ -193,11 +193,12 @@ app.post("/cidBalance", bodyParser.json(), (req, res) => {
     console.log("body: ", req.body)
     const query = req.body.query; //mysql.escape(req.body.query);
     let result = {'customer': []};
+    const amount = req.body.amount;
 
     connection.connect();
     // add balance
     connection.query(
-        `UPDATE Customer SET Balance = Balance + 25 WHERE Customer_ID = '${query}';`,
+        `UPDATE Customer SET Balance = Balance + '${amount}' WHERE Customer_ID = '${query}';`,
         (err, fields) => {
             // add sucesss
             console.log("add success");
