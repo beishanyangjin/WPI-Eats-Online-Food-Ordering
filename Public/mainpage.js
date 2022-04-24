@@ -118,25 +118,26 @@ var mainapp = new Vue({
                 });
             axios.post('/ridFood', {
                     Security_id: "u3",
-                    query: "0"
+                    query: "1001"
                 })
                 .then(function(response) {
                     //this.isSuccess = response.data;
-                    console.log(response.data.foods[0])
-                    var newfid = response.data.foods[0].F_id
-                    var newfname = response.data.foods[0].F_name
-                    var newfimgref = response.data.foods[0].F_Image_Reference
-                    this.fimformation.push({
+                    for(var i=0;i<8;i++){
+                    console.log(response.data.foods[i])
+                    var newfid = response.data.foods[i].F_id
+                    var newfname = response.data.foods[i].F_name
+                    var newfimgref = response.data.foods[i].F_Image_Reference
+                    that.fimformation.push({
                         fid: newfid,
                         rid: "0",
                         rank: "4.1",
-                        selled_quatity: 32,
+                        selled_quality: 32,
                         price: Math.ceil(Math.random() * 10),
                         name: newfname,
                         imgref: newfimgref,
                         delivertime: 10 + Math.ceil(Math.random() * 10),
                         deliverfee: "1"
-                    }, )
+                    }, )}
                 })
                 .catch(function(err) {
                     this.isSuccess = "err";
