@@ -112,5 +112,4 @@ var mainapp = new Vue({
     mounted: function() {
         this.test()
     }
-
 })
