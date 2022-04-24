@@ -137,6 +137,32 @@ app.post("/searchFood", bodyParser.json(), (req, res) => {
         })
 })
 
+app.post("/cidCustomer", bodyParser.json(), (req, res) => {
+    console.log("body: ", req.body)
+    const query = req.body.query; //mysql.escape(req.body.query);
+    let result = {'customer': []};
+
+    connection.connect();
+    // find restaurants with rid like the query text
+    connection.query(
+        `SELECT C.Customer_ID as cid, C.Customer_address as caddress, C.Customer_name as cname, C.Balance FROM Customer C  WHERE Customer_ID = '${query}';`,
+        (err, rows, fields) => {
+            // add each restaurant to the result array
+            console.log("search rows", rows);
+            if (err) throw err;
+            rows.forEach(element => {
+                result.customer.push({
+                    'Customer_ID': element.cid,
+                    'Customer_address': element.caddress,
+                    'Customer_name': element.cname,
+                    'Balance': element.balance
+                    })
+            });
+            console.log("result after restaurants: ", result)
+            res.json(result);
+    })
+})
+
 app.post("/ridRestaurant", bodyParser.json(), (req, res) => {
     console.log("body: ", req.body)
     const query = req.body.query; //mysql.escape(req.body.query);
