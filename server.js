@@ -8,20 +8,19 @@ const slash = require("express-slash");
 const bodyParser = require("body-parser");
 // mysql connection
 const mysql = require("mysql2");
-const connection = mysql.createConnection({
+/*const connection = mysql.createConnection({
     host: 'localhost',
     user: 'dev',
     password: 'dev1',
     database: 'Restaurants'
-})
-/*
+})*/
+
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '12345678',
     database: '542'
-})*/
-
+})
 
 function testMySQL2() {
     connection.connect()
@@ -66,10 +65,25 @@ function getIndex(req, res) {
 app.get("/", (req, res)      => {getIndex(req, res); });
 app.get("/index", (req, res) => {getIndex(req, res); });
 app.get("/login", (req, res) => {
-    res.sendFile(__dirname + "login.html")
+    res.sendFile(__dirname + "/Views/login.html")
 })
 app.get("/searchpage", (req, res) => {
-    res.sendFile(__dirname + "searchpage.html")
+    res.sendFile(__dirname + "/Views/searchpage.html")
+})
+app.get("/index", (req, res) => {
+    res.sendFile(__dirname + "/Views/index.html")
+})
+app.get("/mainpage", (req, res) => {
+    res.sendFile(__dirname + "/Views/mainpage.html")
+})
+app.get("/menu", (req, res) => {
+    res.sendFile(__dirname + "/Views/menu.html")
+})
+app.get("/orderstatus", (req, res) => {
+    res.sendFile(__dirname + "/Views/orderstatus.html")
+})
+app.get("/profile", (req, res) => {
+    res.sendFile(__dirname + "/Views/profile.html")
 })
 
 app.post("/searchRestaurant", bodyParser.json(), (req, res) => {
@@ -80,13 +94,14 @@ app.post("/searchRestaurant", bodyParser.json(), (req, res) => {
     connection.connect();
     // find restaurants with names like the query text
     connection.query(
-        `SELECT R.R_name as rname, RT.type_Name as rtype, R.R_Image_Reference as img FROM restaurant R NATURAL JOIN restaurant_type RT WHERE R_name = '${query}';`,
+        `SELECT R.R_id as rid, R.R_name as rname, RT.type_Name as rtype, R.R_Image_Reference as img FROM restaurant R NATURAL JOIN restaurant_type RT WHERE R_name = '${query}';`,
         (err, rows, fields) => {
             // add each restaurant to the result array
             console.log("search rows", rows);
             if (err) throw err;
             rows.forEach(element => {
                 result.restaurants.push({
+                    'R_id': element.rid,
                     'R_name': element.rname,
                     'Category': element.rtype,
                     'R_Image_Reference': element.img
@@ -105,12 +120,13 @@ app.post("/searchFood", bodyParser.json(), (req, res) => {
     connection.connect();
     // find foods the same way
     connection.query(
-        `SELECT F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img FROM food F NATURAL JOIN food_type FT WHERE F_name LIKE '${query}';`,
+        `SELECT F.F_id as fid, F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img FROM food F NATURAL JOIN food_type FT WHERE F_name LIKE '${query}';`,
         (err, rows, fields) => {
             // add each restaurant to the result array
             if (err) throw err;
             rows.forEach(element => {
                 result.foods.push({
+                    'F_id': element.fid,
                     'F_name': element.fname,
                     'F_type': element.ftype,
                     'F_description': element.fdescription,
@@ -129,13 +145,14 @@ app.post("/ridRestaurant", bodyParser.json(), (req, res) => {
     connection.connect();
     // find restaurants with rid like the query text
     connection.query(
-        `SELECT R.R_name as rname, RT.type_Name as rtype, R.R_Image_Reference as img FROM restaurant R NATURAL JOIN restaurant_type RT WHERE R_id = '${query}';`,
+        `SELECT R.R_id as rid, R.R_name as rname, RT.type_Name as rtype, R.R_Image_Reference as img FROM restaurant R NATURAL JOIN restaurant_type RT WHERE R_id = '${query}';`,
         (err, rows, fields) => {
             // add each restaurant to the result array
             console.log("search rows", rows);
             if (err) throw err;
             rows.forEach(element => {
                 result.restaurants.push({
+                    'R_id': element.rid,
                     'R_name': element.rname,
                     'Category': element.rtype,
                     'R_Image_Reference': element.img
