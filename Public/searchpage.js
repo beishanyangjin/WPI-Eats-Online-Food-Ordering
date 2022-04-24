@@ -60,23 +60,6 @@ var mainapp = new Vue({
         },
         torestaurant: function(id) {
             window.location.href = "menu.html?username=" + this.username + "&rid=" + id
-        },
-        test: function() {
-            axios.post('/searchRestaurant', {
-                    Security_id: "u3",
-                    Password_id: "11",
-                    user_name: "user_name",
-                    user_phone: "user_phone",
-                    address: "address3",
-                    query: this.searchContent
-                })
-                .then(function(response) {
-                    //this.isSuccess = response.data;
-                    console.log(response.Restaurant)
-                })
-                .catch(function(err) {
-                    this.isSuccess = "err";
-                });
         }
     },
     computed: {
@@ -100,8 +83,23 @@ var mainapp = new Vue({
                 i++
             }
             return m;
+        },
+        newdiv: function() {
+            axios.post('/searchRestaurant', {
+                    Security_id: "u3",
+                    query: this.searchContent
+                })
+                .then(function(response) {
+                    //this.isSuccess = response.data;
+                    console.log(response.data.restaurants[0])
+                    response.data.restaurants[0].R_id
+                    response.data.restaurants[0].R_name
+                    response.data.restaurants[0].R_Image_Reference
+                })
+                .catch(function(err) {
+                    this.isSuccess = "err";
+                });
         }
-
     }
 
 })
