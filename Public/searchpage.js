@@ -9,6 +9,9 @@ if (arg.length > 1) {
 var mainapp = new Vue({
     el: ".app",
     data: {
+        id:"",
+        name:"",
+        ref:"",
         islogin: false,
         isshowcart: false,
         userid: "login",
@@ -62,21 +65,26 @@ var mainapp = new Vue({
             window.location.href = "menu.html?username=" + this.username + "&rid=" + id
         },
         test: function() {
+            var that = this
             axios.post('/searchRestaurant', {
                     Security_id: "u3",
                     Password_id: "11",
                     user_name: "user_name",
                     user_phone: "user_phone",
-                    address: "address3",
                     query: this.searchContent
                 })
                 .then(function(response) {
                     //this.isSuccess = response.data;
-                    console.log(response.Restaurant)
+                    console.log(response.data.restaurants[0].R_name)
+                    that.id = response.data.restaurants[0].R_id
+                    that.name = response.data.restaurants[0].R_name
+                    that.ref = response.data.restaurants[0].R_Image_Reference
+                    that.rsearch.push({rid: that.id, rank: 4.2, name: that.name, imgref: that.ref, delivertime: "20", deliverfee: "2"})
                 })
                 .catch(function(err) {
                     this.isSuccess = "err";
                 });
+                
         }
     },
     computed: {
