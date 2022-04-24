@@ -145,7 +145,7 @@ app.post("/cidCustomer", bodyParser.json(), (req, res) => {
     connection.connect();
     // find restaurants with rid like the query text
     connection.query(
-        `SELECT C.Customer_ID as cid, C.Customer_address as caddress, C.Customer_name as cname, C.Balance FROM Customer C  WHERE Customer_ID = '${query}';`,
+        `SELECT C.Customer_ID as cid, C.Customer_address as caddress, C.Customer_name as cname, C.Balance as balance FROM Customer C  WHERE Customer_ID = '${query}';`,
         (err, rows, fields) => {
             // add each restaurant to the result array
             console.log("search rows", rows);
@@ -188,6 +188,26 @@ app.post("/ridRestaurant", bodyParser.json(), (req, res) => {
             res.json(result);
     })
 })
+
+app.post("/cidBalance", bodyParser.json(), (req, res) => {
+    console.log("body: ", req.body)
+    const query = req.body.query; //mysql.escape(req.body.query);
+    let result = {'customer': []};
+
+    connection.connect();
+    // add balance
+    connection.query(
+        `UPDATE Customer SET Balance = Balance + 25 WHERE Customer_ID = '${query}';`,
+        (err, fields) => {
+            // add success
+            console.log("add success");
+            if (err) throw err;
+            res.json({add:'success'});
+    })
+})
+
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
