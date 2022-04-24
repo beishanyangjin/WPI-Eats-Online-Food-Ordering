@@ -49,6 +49,7 @@ var app = new Vue({
         },
         addbalance: function() {
             axios.post('/cidBalance', {
+                    amount: 25,
                     query: "101"
                 })
                 .then(function(response) {

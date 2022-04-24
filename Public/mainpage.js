@@ -30,10 +30,10 @@ var mainapp = new Vue({
 
         ],
         fimformation: [
-            { fid: "0003", rid: "0003", rank: "4.5", selled_quatity: 33, price: 3.5, name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1", selled_quality: 7 },
-            { fid: "0004", rid: "0003", rank: "4.5", selled_quatity: 32, price: 13.5, name: "wendy's", imgref: "Coke.webp", delivertime: "20", deliverfee: "2", selled_quality: 17 },
-            { fid: "0005", rid: "0003", rank: "4.5", selled_quatity: 32, price: 8.5, name: "Starbucks's", imgref: "big-mac-meal.webp", delivertime: "15", deliverfee: "0", selled_quality: 23 },
-            { fid: "0006", rid: "0003", rank: "4.5", selled_quatity: 14, price: 2.5, name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1", selled_quality: 73 },
+            { fid: "0003", rid: "0003", rank: "4.5", selled_quatity: 33, price: 3.5, name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1", selled_quatity: 7 },
+            { fid: "0004", rid: "0003", rank: "4.5", selled_quatity: 32, price: 13.5, name: "wendy's", imgref: "Coke.webp", delivertime: "20", deliverfee: "2", selled_quatity: 17 },
+            { fid: "0005", rid: "0003", rank: "4.5", selled_quatity: 32, price: 8.5, name: "Starbucks's", imgref: "big-mac-meal.webp", delivertime: "15", deliverfee: "0", selled_quatity: 23 },
+            { fid: "0006", rid: "0003", rank: "4.5", selled_quatity: 14, price: 2.5, name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1", selled_quatity: 73 },
 
 
             //{rid:"0005",name: "Starbucks's",imgref:"img/big-mac-meal.webp",delivertime:"15",deliverfee:"0"}
@@ -52,7 +52,7 @@ var mainapp = new Vue({
     },
     methods: {
         tosearch: function() {
-            window.location.href = "https://www.baidu.com/s?wd=" + this.searchContent
+            window.location.href = "menu.html?username=" + this.username + "&searchkey=" + this.searchContent
         },
         addtoCart: function(foodid) {
             var newfood = this.fimformation.find(item => item.fid == foodid);
@@ -101,43 +101,47 @@ var mainapp = new Vue({
         */
         test: function() {
             var that = this
-            axios.post('/ridRestaurant', {
-                    Security_id: "u3",
-                    query: "101"
-                })
-                .then(function(response) {
-                    //this.isSuccess = response.data;
-                    console.log(response.data.restaurants[0].R_name)
-                    that.id = response.data.restaurants[0].R_id
-                    that.name = response.data.restaurants[0].R_name
-                    that.ref = response.data.restaurants[0].R_Image_Reference
-                    that.rimformation.push({ rid: that.id, rank: 4.2, name: that.name, imgref: that.ref, delivertime: "20", deliverfee: "1.5" })
-                })
-                .catch(function(err) {
-                    this.isSuccess = "err";
-                });
+            for (var i = 0; i < 4; i++) {
+                axios.post('/ridRestaurant', {
+                        query: 1001 + i
+                    })
+                    .then(function(response) {
+                        //this.isSuccess = response.data;
+                        console.log(response.data.restaurants[0].R_name)
+                        that.id = response.data.restaurants[0].R_id
+                        that.name = response.data.restaurants[0].R_name
+                        that.ref = response.data.restaurants[0].R_Image_Reference
+                        that.rimformation.push({ rid: that.id, rank: 4.2, name: that.name, imgref: that.ref, delivertime: "20", deliverfee: "1.5" })
+                    })
+                    .catch(function(err) {
+                        this.isSuccess = "err";
+                    });
+            }
+
             axios.post('/ridFood', {
                     Security_id: "u3",
                     query: "1001"
                 })
                 .then(function(response) {
                     //this.isSuccess = response.data;
-                    for(var i=0;i<8;i++){
-                    console.log(response.data.foods[i])
-                    var newfid = response.data.foods[i].F_id
-                    var newfname = response.data.foods[i].F_name
-                    var newfimgref = response.data.foods[i].F_Image_Reference
-                    that.fimformation.push({
-                        fid: newfid,
-                        rid: "0",
-                        rank: "4.1",
-                        selled_quality: 32,
-                        price: Math.ceil(Math.random() * 10),
-                        name: newfname,
-                        imgref: newfimgref,
-                        delivertime: 10 + Math.ceil(Math.random() * 10),
-                        deliverfee: "1"
-                    }, )}
+                    for (var i = 0; i < 8; i++) {
+                        console.log(response.data.foods[i])
+                        var newfid = response.data.foods[i].F_id
+                        var newfname = response.data.foods[i].F_name
+                        var newfimgref = response.data.foods[i].F_Image_Reference
+                        var newquatity = response.data.foods[i].fquatity
+                        that.fimformation.push({
+                            fid: newfid,
+                            rid: "0",
+                            rank: "4.1",
+                            selled_quatity: newquatity,
+                            price: Math.ceil(Math.random() * 10) + Math.ceil(Math.random() * 10) / 10,
+                            name: newfname,
+                            imgref: newfimgref,
+                            delivertime: 10 + Math.ceil(Math.random() * 10),
+                            deliverfee: "1"
+                        }, )
+                    }
                 })
                 .catch(function(err) {
                     this.isSuccess = "err";

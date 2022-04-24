@@ -34,8 +34,7 @@
                     <th>option</th>
                 </tr>
                 <tr class="cartitem" v-for="item in cart" :key="item.fid">
-                    <td>{{
-                        <it></it>em.fname}}</td>
+                    <td>{{item.fname}}</td>
                     <td>{{item.quatity}}</td>
                     <td><input type="button" value='delete' @click="cancelitem(item.fid)"></input>
                     </td>
