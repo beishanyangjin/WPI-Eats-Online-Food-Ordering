@@ -17,10 +17,11 @@
                 <input class="inputbox" style="color: #D0B48F;" placeholder="Search for food" v-model="searchContent">
                 <a class='ib' @click="tosearch">Search</a>
             </div>
-            <a id="mycart" @click="showcart"></a>
+            <a id="mycart" @click="cart"></a>
             <div id='login_place'>
                 <a class="loginstatus" :href="directurl">{{username}}</a>
             </div>
+            <button @click="test">load</button>
         </div>
         <!-- cart -->
         <div id="cart" v-show="isshowcart">

@@ -68,9 +68,6 @@ var mainapp = new Vue({
             var that = this
             axios.post('/searchRestaurant', {
                     Security_id: "u3",
-                    Password_id: "11",
-                    user_name: "user_name",
-                    user_phone: "user_phone",
                     query: this.searchContent
                 })
                 .then(function(response) {
@@ -108,8 +105,5 @@ var mainapp = new Vue({
             }
             return m;
         }
-    },
-    mounted: function() {
-        this.test()
     }
 })

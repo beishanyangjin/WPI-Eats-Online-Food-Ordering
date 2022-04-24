@@ -8,19 +8,18 @@ const slash = require("express-slash");
 const bodyParser = require("body-parser");
 // mysql connection
 const mysql = require("mysql2");
-const connection = mysql.createConnection({
+/*const connection = mysql.createConnection({
     host: 'localhost',
     user: 'dev',
     password: 'dev1',
     database: 'Restaurants'
-})
-/*
+})*/
 const connection = mysql.createConnection({
     host: 'localhost',
     user: 'root',
     password: '12345678',
     database: '542'
-})*/
+})
 
 
 function testMySQL2() {

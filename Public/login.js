@@ -1,13 +1,22 @@
+var url = window.location.href;
+var arg = url.split("?username=");
+if (arg.length > 0) {
+    var args = arg[1]
+} else {
+    var args = [0, 0];
+}
 var app = new Vue({
     el: ".box",
     data: {
-        id: "",
+        id: args,
         password: "",
         isSuccess: "Fail to login",
-        isShow: false
+        isShow: false,
+        balance: 0
     },
     methods: {
         submitloginimf: function() {
+            /*
             axios.post('searchRestaurant',
                 {
                     Security_id: "u3",
@@ -25,6 +34,7 @@ var app = new Vue({
                 .catch(function(err) {
                     this.isSuccess = "err";
                 });
+                */
             console.log(this.id)
             this.isShow = true
         },
@@ -36,7 +46,15 @@ var app = new Vue({
             //).catch(function(err){})
             console.log(this.id)
             this.isShow = true
+        },
+        addbalance: function(){
+            this.balance +=100
+            //here lack axios.post(/addbalance)
+        }
+    },
+    computed: {
+        mainpageurl: function() {
+            return "mainpage.html?username=" + this.username
         }
     }
-
 })
