@@ -120,7 +120,7 @@ app.post("/searchFood", bodyParser.json(), (req, res) => {
     connection.connect();
     // find foods the same way
     connection.query(
-        `SELECT F.F_id as fid, F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img FROM food F NATURAL JOIN food_type FT WHERE F_name LIKE '${query}';`,
+        `SELECT F.F_id as fid, F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img, F.F_quantity as fquantity FROM food F NATURAL JOIN food_type FT WHERE F_name LIKE '${query}';`,
         (err, rows, fields) => {
             // add each restaurant to the result array
             if (err) throw err;
@@ -130,7 +130,8 @@ app.post("/searchFood", bodyParser.json(), (req, res) => {
                     'F_name': element.fname,
                     'F_type': element.ftype,
                     'F_description': element.fdescription,
-                    'F_Image_Reference': element.img
+                    'F_Image_Reference': element.img,
+                    'F_quantity': element.fquantity
                 })
             });
             res.json(result);
@@ -216,7 +217,7 @@ app.post("/ridFood", bodyParser.json(), (req, res) => {
     connection.connect();
     // find foods using rid
     connection.query(
-        `SELECT F.F_id as fid, F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img FROM food F NATURAL JOIN food_type FT WHERE F.R_id = '${query}';`,
+        `SELECT F.F_id as fid, F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img, F.F_quantity as fquantity FROM food F NATURAL JOIN food_type FT WHERE F.R_id = '${query}';`,
         (err, rows, fields) => {
             // add each restaurant to the result array
             if (err) throw err;
@@ -226,7 +227,8 @@ app.post("/ridFood", bodyParser.json(), (req, res) => {
                     'F_name': element.fname,
                     'F_type': element.ftype,
                     'F_description': element.fdescription,
-                    'F_Image_Reference': element.img
+                    'F_Image_Reference': element.img,
+                    'F_quantity': element.fquantity
                 })
             });
             res.json(result);
