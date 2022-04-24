@@ -130,5 +130,4 @@ var mainapp = new Vue({
                 this.isSuccess = "err";
             });
     }
-
 })
