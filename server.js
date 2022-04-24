@@ -199,13 +199,38 @@ app.post("/cidBalance", bodyParser.json(), (req, res) => {
     connection.query(
         `UPDATE Customer SET Balance = Balance + 25 WHERE Customer_ID = '${query}';`,
         (err, fields) => {
-            // add success
+            // add sucesss
             console.log("add success");
             if (err) throw err;
             res.json({add:'success'});
     })
 })
 
+
+app.post("/ridFood", bodyParser.json(), (req, res) => {
+    console.log("body: ", req.body)
+    const query = req.body.query; //mysql.escape(req.body.query);
+    let result = {'restaurants': [], 'foods': []};
+
+    connection.connect();
+    // find foods using rid
+    connection.query(
+        `SELECT F.F_id as fid, F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img FROM food F NATURAL JOIN food_type FT WHERE F.R_id = '${query}';`,
+        (err, rows, fields) => {
+            // add each restaurant to the result array
+            if (err) throw err;
+            rows.forEach(element => {
+                result.foods.push({
+                    'F_id': element.fid,
+                    'F_name': element.fname,
+                    'F_type': element.ftype,
+                    'F_description': element.fdescription,
+                    'F_Image_Reference': element.img
+                })
+            });
+            res.json(result);
+        })
+})
 
 
 
