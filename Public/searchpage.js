@@ -64,7 +64,7 @@ var mainapp = new Vue({
         test: function() {
             var that = this
             axios.post('/searchRestaurant', {
-                    query: this.searchContent
+                    query: that.searchContent
                 })
                 .then(function(response) {
                     //this.isSuccess = response.data;

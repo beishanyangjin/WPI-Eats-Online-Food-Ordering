@@ -87,7 +87,7 @@ var mainapp = new Vue({
         */
         test: function() {
             var that = this
-            for (var i = 0; i < 4; i++) {
+            for (var i = 0; i < 8; i++) {
                 axios.post('/ridRestaurant', {
                         query: 1001 + i
                     })
@@ -111,7 +111,7 @@ var mainapp = new Vue({
                     console.log(response.data.restaurants[0])
                     that.rname = response.data.restaurants[0].R_name
                     that.rref = response.data.restaurants[0].R_Image_Reference
-                    that.rimformation.push({ rid: that.id, rank: 4.2, name: that.name, imgref: that.ref, delivertime: "20", deliverfee: "1.5" })
+                    //that.rimformation.push({ rid: that.id, rank: 4.2, name: that.name, imgref: that.ref, delivertime: "20", deliverfee: "1.5" })
                 })
                 .catch(function(err) {
                     this.isSuccess = "err";
@@ -119,7 +119,7 @@ var mainapp = new Vue({
 
             axios.post('/ridFood', {
                     Security_id: "u3",
-                    query: "1001"
+                    query: that.rid
                 })
                 .then(function(response) {
                     //this.isSuccess = response.data;
@@ -153,7 +153,7 @@ var mainapp = new Vue({
         },
         rid: () => {
             if (args[1]) return args[1];
-            else return null;
+            else return 1001;
         },
         username: function() {
             if (args[0] != "login" && args[0] != "NULL") {
