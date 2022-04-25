@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>My coupon</title>
+    <link rel="stylesheet" type="text/css" href="mycoupon.css">
+</head>
+
+<body>
+    <div class="box">
+        <h2>My Coupon</h2>
+        <div class="coupon" v-for="item in couponsgot" :key="">
+            <p class="coupondesp"> {{item.discount}} off on {{item.restaurant}}</p>
+            <p class="expiredesp">expire at {{item.expiredate}} </p>
+        </div>
+        <p> </p>
+        <a :href="mainpageurl"> back</a>
+    </div>
+</body>
+
+<script src="vue.js"></script>
+<script src="mycoupon.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+
+</html>

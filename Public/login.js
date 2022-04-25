@@ -71,11 +71,14 @@ var app = new Vue({
                     this.isSuccess = "err";
                 });
 
+        },
+        tomycoupon: function() {
+            window.location.href = "mycoupon.html?username=" + this.username
         }
     },
     computed: {
         mainpageurl: function() {
-            return "mainpage.html?username=" + this.username
+            return "mainpage.html?username=" + this.id
         }
     }
 })

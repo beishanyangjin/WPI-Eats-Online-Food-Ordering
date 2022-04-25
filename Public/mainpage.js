@@ -40,6 +40,9 @@ var mainapp = new Vue({
         tosearch: function() {
             window.location.href = "searchpage.html?username=" + this.username + "&searchkey=" + this.searchContent
         },
+        tomycoupon: function() {
+            window.location.href = "mycoupon.html?username=" + this.username
+        },
         addtoCart: function(foodid) {
             var newfood = this.fimformation.find(item => item.fid == foodid);
 
@@ -111,7 +114,7 @@ var mainapp = new Vue({
                     console.log(response.data.restaurants[0])
                     that.rname = response.data.restaurants[0].R_name
                     that.rref = response.data.restaurants[0].R_Image_Reference
-                    //that.rimformation.push({ rid: that.id, rank: 4.2, name: that.name, imgref: that.ref, delivertime: "20", deliverfee: "1.5" })
+                        //that.rimformation.push({ rid: that.id, rank: 4.2, name: that.name, imgref: that.ref, delivertime: "20", deliverfee: "1.5" })
                 })
                 .catch(function(err) {
                     this.isSuccess = "err";
