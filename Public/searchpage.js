@@ -19,10 +19,7 @@ var mainapp = new Vue({
         searchContent: args[1],
         //cart.item:{ fid: string, fname: string, quatity: int, price:  }
         cart: new Array,
-        rsearch: [
-            { rid: "0003", rank: "4.5", name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1" },
-            { rid: "0004", rank: "4.5", name: "wendy's", imgref: "Coke.webp", delivertime: "20", deliverfee: "2" },
-        ]
+        rsearch: [],
     },
     methods: {
         tosearch: function() {
@@ -67,10 +64,6 @@ var mainapp = new Vue({
         test: function() {
             var that = this
             axios.post('/searchRestaurant', {
-                    Security_id: "u3",
-                    Password_id: "11",
-                    user_name: "user_name",
-                    user_phone: "user_phone",
                     query: this.searchContent
                 })
                 .then(function(response) {
@@ -108,8 +101,5 @@ var mainapp = new Vue({
             }
             return m;
         }
-    },
-    mounted: function() {
-        this.test()
     }
 })

@@ -122,7 +122,7 @@ app.post("/searchFood", bodyParser.json(), (req, res) => {
     connection.connect();
     // find foods the same way
     connection.query(
-        `SELECT F.F_id as fid, F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img FROM food F NATURAL JOIN food_type FT WHERE F_name LIKE '${query}';`,
+        `SELECT F.F_id as fid, F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img, F.F_quantity as fquantity FROM food F NATURAL JOIN food_type FT WHERE F_name LIKE '${query}';`,
         (err, rows, fields) => {
             // add each restaurant to the result array
             if (err) throw err;
@@ -132,7 +132,8 @@ app.post("/searchFood", bodyParser.json(), (req, res) => {
                     'F_name': element.fname,
                     'F_type': element.ftype,
                     'F_description': element.fdescription,
-                    'F_Image_Reference': element.img
+                    'F_Image_Reference': element.img,
+                    'F_quantity': element.fquantity
                 })
             });
             res.json(result);
@@ -147,7 +148,7 @@ app.post("/cidCustomer", bodyParser.json(), (req, res) => {
     connection.connect();
     // find restaurants with rid like the query text
     connection.query(
-        `SELECT C.Customer_ID as cid, C.Customer_address as caddress, C.Customer_name as cname, C.Balance FROM Customer C  WHERE Customer_ID = '${query}';`,
+        `SELECT C.Customer_ID as cid, C.Customer_address as caddress, C.Customer_name as cname, C.Balance as balance FROM Customer C  WHERE Customer_ID = '${query}';`,
         (err, rows, fields) => {
             // add each restaurant to the result array
             console.log("search rows", rows);
@@ -190,6 +191,53 @@ app.post("/ridRestaurant", bodyParser.json(), (req, res) => {
             res.json(result);
     })
 })
+
+app.post("/cidBalance", bodyParser.json(), (req, res) => {
+    console.log("body: ", req.body)
+    const query = req.body.query; //mysql.escape(req.body.query);
+    let result = {'customer': []};
+    const amount = req.body.amount;
+
+    connection.connect();
+    // add balance
+    connection.query(
+        `UPDATE Customer SET Balance = Balance + '${amount}' WHERE Customer_ID = '${query}';`,
+        (err, fields) => {
+            // add sucesss
+            console.log("add success");
+            if (err) throw err;
+            res.json({add:'success'});
+    })
+})
+
+
+app.post("/ridFood", bodyParser.json(), (req, res) => {
+    console.log("body: ", req.body)
+    const query = req.body.query; //mysql.escape(req.body.query);
+    let result = {'restaurants': [], 'foods': []};
+
+    connection.connect();
+    // find foods using rid
+    connection.query(
+        `SELECT F.F_id as fid, F.F_name as fname, FT.type_Name as ftype, F.F_description as fdescription, F.F_Image_Reference as img, F.F_quantity as fquantity FROM food F NATURAL JOIN food_type FT WHERE F.R_id = '${query}';`,
+        (err, rows, fields) => {
+            // add each restaurant to the result array
+            if (err) throw err;
+            rows.forEach(element => {
+                result.foods.push({
+                    'F_id': element.fid,
+                    'F_name': element.fname,
+                    'F_type': element.ftype,
+                    'F_description': element.fdescription,
+                    'F_Image_Reference': element.img,
+                    'F_quantity': element.fquantity
+                })
+            });
+            res.json(result);
+        })
+})
+
+
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
