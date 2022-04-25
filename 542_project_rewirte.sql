@@ -65,9 +65,13 @@ CREATE TABLE Orders(
 CREATE TABLE Security_linkwith(
     Customer_ID CHAR(11),
     Security_id CHAR(11),
+    Password_id CHAR(11),
+    User_name VARCHAR(11),
+    User_phone VARCHAR(11),
     PRIMARY KEY (Customer_ID,Security_id),
-    FOREIGN KEY (Customer_ID) REFERENCES Customer (Customer_ID)
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
 );
+
 
 CREATE TABLE Get_C(
     Customer_ID CHAR(11),
@@ -97,7 +101,7 @@ CREATE TABLE Food(
     R_id CHAR(11),
     F_id CHAR(11),
     F_name VARCHAR(20),
-    F_description VARCHAR(30),
+    F_discription VARCHAR(30),
     F_type REAL,
     F_Image_Reference VARCHAR(30),
     PRIMARY KEY (F_id),
@@ -129,7 +133,7 @@ CREATE TABLE C_create(
 
 CREATE TABLE Pay(
     Order_id CHAR(11),
-    amount_paid REAL,
+    C_Pay REAL,
     Customer_ID CHAR(11),
     Pay_time DATE,
     PRIMARY KEY (Order_id,Customer_ID),
@@ -222,8 +226,11 @@ CREATE TABLE Menu_display_include(
 CREATE TABLE Make_f(
     R_id CHAR(11),
     F_id CHAR(11),
-    Preparing_time_minutes REAL,
+    Preparing_time REAL,
     PRIMARY KEY (R_id,F_id),
     FOREIGN KEY (R_id) REFERENCES Restaurant (R_id),
     FOREIGN KEY (F_id) REFERENCES Food (F_id)
 );
+
+INSERT INTO Customer VALUES ('Customer_ID','Customer_address','Customer_name','Balance');
+INSERT INTO Customer VALUES ('12345','fuller','CHAOWANG','20');
