@@ -21,10 +21,6 @@ var mainapp = new Vue({
         rimformation: [
             //{rid:"0005",name: "Starbucks's",imgref:"img/big-mac-meal.webp",delivertime:"15",deliverfee:"0"}
         ],
-        rsearch: [
-            { rid: "0003", rank: "4.5", name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1" }
-
-        ],
         fimformation: [
             //{rid:"0005",name: "Starbucks's",imgref:"img/big-mac-meal.webp",delivertime:"15",deliverfee:"0"}
         ],
@@ -42,7 +38,7 @@ var mainapp = new Vue({
     },
     methods: {
         tosearch: function() {
-            window.location.href = "menu.html?username=" + this.username + "&searchkey=" + this.searchContent
+            window.location.href = "searchpage.html?username=" + this.username + "&searchkey=" + this.searchContent
         },
         addtoCart: function(foodid) {
             var newfood = this.fimformation.find(item => item.fid == foodid);
