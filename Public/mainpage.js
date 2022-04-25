@@ -10,6 +10,8 @@ if (arg.length > 1) {
 var mainapp = new Vue({
     el: ".app",
     data: {
+        rname: "",
+        rref: "",
         islogin: false,
         isshowcart: false,
         userid: "login",
@@ -17,25 +19,13 @@ var mainapp = new Vue({
         //r: "",
         searchContent: "",
         rimformation: [
-            { rid: "0003", rank: "4.5", name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1" },
-            { rid: "0004", rank: "4.5", name: "wendy's", imgref: "Coke.webp", delivertime: "20", deliverfee: "2" },
-            { rid: "0005", rank: "4.5", name: "Starbucks's", imgref: "big-mac-meal.webp", delivertime: "15", deliverfee: "0" },
-            { rid: "0003", rank: "4.5", name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1" },
-            { rid: "0004", rank: "4.5", name: "wendy's", imgref: "Coke.webp", delivertime: "20", deliverfee: "2" },
             //{rid:"0005",name: "Starbucks's",imgref:"img/big-mac-meal.webp",delivertime:"15",deliverfee:"0"}
         ],
         rsearch: [
-            { rid: "0003", rank: "4.5", name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1" },
-            { rid: "0004", rank: "4.5", name: "wendy's", imgref: "Coke.webp", delivertime: "20", deliverfee: "2" },
+            { rid: "0003", rank: "4.5", name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1" }
 
         ],
         fimformation: [
-            { fid: "0003", rid: "0003", rank: "4.5", selled_quatity: 33, price: 3.5, name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1", selled_quatity: 7 },
-            { fid: "0004", rid: "0003", rank: "4.5", selled_quatity: 32, price: 13.5, name: "wendy's", imgref: "Coke.webp", delivertime: "20", deliverfee: "2", selled_quatity: 17 },
-            { fid: "0005", rid: "0003", rank: "4.5", selled_quatity: 32, price: 8.5, name: "Starbucks's", imgref: "big-mac-meal.webp", delivertime: "15", deliverfee: "0", selled_quatity: 23 },
-            { fid: "0006", rid: "0003", rank: "4.5", selled_quatity: 14, price: 2.5, name: "burger king", imgref: "restaurant.webp", delivertime: "22", deliverfee: "1", selled_quatity: 73 },
-
-
             //{rid:"0005",name: "Starbucks's",imgref:"img/big-mac-meal.webp",delivertime:"15",deliverfee:"0"}
         ],
         //cart.item:{ fid: string, fname: string, quatity: int, price:  }
@@ -108,15 +98,28 @@ var mainapp = new Vue({
                     .then(function(response) {
                         //this.isSuccess = response.data;
                         console.log(response.data.restaurants[0].R_name)
-                        that.id = response.data.restaurants[0].R_id
-                        that.name = response.data.restaurants[0].R_name
-                        that.ref = response.data.restaurants[0].R_Image_Reference
-                        that.rimformation.push({ rid: that.id, rank: 4.2, name: that.name, imgref: that.ref, delivertime: "20", deliverfee: "1.5" })
+                        var newid = response.data.restaurants[0].R_id
+                        var newname = response.data.restaurants[0].R_name
+                        var newref = response.data.restaurants[0].R_Image_Reference
+                        that.rimformation.push({ rid: newid, rank: 4.2, name: newname, imgref: newref, delivertime: "20", deliverfee: "1.5" })
                     })
                     .catch(function(err) {
                         this.isSuccess = "err";
                     });
             }
+            axios.post('/ridRestaurant', {
+                    query: that.rid
+                })
+                .then(function(response) {
+                    //this.isSuccess = response.data;
+                    console.log(response.data.restaurants[0])
+                    that.rname = response.data.restaurants[0].R_name
+                    that.rref = response.data.restaurants[0].R_Image_Reference
+                    that.rimformation.push({ rid: that.id, rank: 4.2, name: that.name, imgref: that.ref, delivertime: "20", deliverfee: "1.5" })
+                })
+                .catch(function(err) {
+                    this.isSuccess = "err";
+                });
 
             axios.post('/ridFood', {
                     Security_id: "u3",
